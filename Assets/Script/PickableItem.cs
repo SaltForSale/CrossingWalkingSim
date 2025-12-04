@@ -29,12 +29,19 @@ public class PickableItem : MonoBehaviour
     private Color targetColor;
 
     public GameObject pressEUI;
+
+    
+
+
+ 
+   
     void Start()
     {
         player = GameObject.FindWithTag("Player").transform;
 
         if (pressEUI != null)
             pressEUI.SetActive(false);  
+        
 
         
         switch (itemType)
@@ -63,8 +70,8 @@ public class PickableItem : MonoBehaviour
                 pressEUI.SetActive(true);
             if (Input.GetKeyDown(KeyCode.E))
             {
-                GameManager.Instance.AddItem();
-
+                GameManager.Instance.AddItem(itemType);
+                 
                 
                 ChangeStreetLightMaterials();
 
@@ -73,6 +80,8 @@ public class PickableItem : MonoBehaviour
                 {
                     light.color = targetColor;
                 }
+
+                
 
                 Destroy(gameObject);
                 Destroy(pressEUI);
@@ -110,4 +119,5 @@ public class PickableItem : MonoBehaviour
             rend.material = chosenMaterial;
         }
     }
+     
 }

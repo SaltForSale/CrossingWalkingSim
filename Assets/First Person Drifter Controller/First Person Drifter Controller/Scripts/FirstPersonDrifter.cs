@@ -61,6 +61,8 @@ public class FirstPersonDrifter: MonoBehaviour
         rayDistance = controller.height * .5f + controller.radius;
         slideLimit = controller.slopeLimit - .1f;
         jumpTimer = antiBunnyHopFactor;
+
+
     }
  
     void FixedUpdate() {
@@ -119,6 +121,8 @@ public class FirstPersonDrifter: MonoBehaviour
                 moveDirection.y = jumpSpeed;
                 jumpTimer = 0;
             }
+
+            
         }
         else {
             // If we stepped over a cliff or something, set the height at which we started falling
