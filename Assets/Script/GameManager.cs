@@ -56,6 +56,10 @@ public class GameManager : MonoBehaviour
         
         
 
+        
+    }
+
+    public void Update(){
         if (collectedCount >= 3)
         {
             barrier.SetActive(false);   

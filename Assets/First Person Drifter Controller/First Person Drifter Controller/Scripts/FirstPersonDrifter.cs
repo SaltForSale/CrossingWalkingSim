@@ -10,6 +10,9 @@ public class FirstPersonDrifter: MonoBehaviour
 {
     public float walkSpeed = 6.0f;
     public float runSpeed = 10.0f;
+
+    [HideInInspector] public float targetWalkSpeed;
+    public float speedLerpRate = 2f; 
  
     // If true, diagonal speed (when strafing + moving forward or back) can't exceed normal move speed; otherwise it's about 1.4 times faster
     private bool limitDiagonalSpeed = true;
@@ -62,10 +65,14 @@ public class FirstPersonDrifter: MonoBehaviour
         slideLimit = controller.slopeLimit - .1f;
         jumpTimer = antiBunnyHopFactor;
 
+        targetWalkSpeed = walkSpeed;
 
     }
  
     void FixedUpdate() {
+
+        walkSpeed = Mathf.Lerp(walkSpeed, targetWalkSpeed, Time.deltaTime * speedLerpRate);
+
         float inputX = Input.GetAxis("Horizontal");
         float inputY = Input.GetAxis("Vertical");
         // If both horizontal and vertical are used simultaneously, limit speed (if allowed), so the total doesn't exceed normal move speed
