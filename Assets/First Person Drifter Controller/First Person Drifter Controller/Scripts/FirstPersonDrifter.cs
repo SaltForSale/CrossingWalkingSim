@@ -9,7 +9,7 @@ using System.Collections;
 public class FirstPersonDrifter: MonoBehaviour
 {
     public float walkSpeed = 6.0f;
-    public float runSpeed = 10.0f;
+    public float runSpeed = 2f;
 
     [HideInInspector] public float targetWalkSpeed;
     public float speedLerpRate = 2f; 
@@ -66,6 +66,7 @@ public class FirstPersonDrifter: MonoBehaviour
         jumpTimer = antiBunnyHopFactor;
 
         targetWalkSpeed = walkSpeed;
+        
 
     }
  
@@ -104,6 +105,10 @@ public class FirstPersonDrifter: MonoBehaviour
             if( enableRunning )
             {
             	speed = Input.GetButton("Run")? runSpeed : walkSpeed;
+            }
+            else
+            {
+                speed = walkSpeed;
             }
  
             // If sliding (and it's allowed), or if we're on an object tagged "Slide", get a vector pointing down the slope we're on
