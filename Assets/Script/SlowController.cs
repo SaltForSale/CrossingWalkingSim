@@ -4,17 +4,16 @@ using UnityEngine;
 
 public class SlowZoneTrigger : MonoBehaviour
 {
-    public float slowSpeed = 2f; 
+    public float slowSpeed = 2f;
+    private FirstPersonDrifter fp;
+    private bool playerInside = false;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            FirstPersonDrifter fp = other.GetComponent<FirstPersonDrifter>();
-            if (fp != null)
-            {
-                fp.targetWalkSpeed = slowSpeed; 
-            }
+            fp = other.GetComponent<FirstPersonDrifter>();
+            playerInside = true;
         }
     }
 
@@ -22,11 +21,30 @@ public class SlowZoneTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            FirstPersonDrifter fp = other.GetComponent<FirstPersonDrifter>();
             if (fp != null)
-            {
                 fp.targetWalkSpeed = fp.walkSpeed; 
-            }
+
+            fp = null;
+            playerInside = false;
+        }
+    }
+
+    private void Update()
+    {
+        if (!playerInside || fp == null)
+            return;
+
+    
+        float yRot = fp.transform.eulerAngles.y;
+
+        
+        if (yRot >= 90f && yRot <= 270f)
+        {
+            fp.targetWalkSpeed = slowSpeed;
+        }
+        else
+        {
+            fp.targetWalkSpeed = 5f;
         }
     }
 }

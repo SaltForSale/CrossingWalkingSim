@@ -13,12 +13,16 @@ public class Transition : MonoBehaviour
 
     private bool canTeleport = true; 
 
+    public GameObject pressEUI;
+
     void Start()
     {
+
+        if (pressEUI != null)
+            pressEUI.SetActive(false);  
+
         player = GameObject.FindWithTag("Player").transform;
-        Debug.Log(player.position);
-        Debug.Log(itselfObject.transform.position);
-        Debug.Log(otherLocation.transform.position);
+        
     }
 
     void Update()
@@ -28,7 +32,8 @@ public class Transition : MonoBehaviour
 
     if (dist <= range)
     {
-       
+       if (pressEUI != null)
+            pressEUI.SetActive(true);
 
         if (Input.GetKeyDown(KeyCode.E))
         {
@@ -43,6 +48,12 @@ public class Transition : MonoBehaviour
 
             if (cc != null) cc.enabled = true;
         }
+    }
+    else
+    {
+            
+        if (pressEUI != null)
+            pressEUI.SetActive(false);
     }
 }
 
